@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.lang.annotation.*;
 
 /**
- * 该注解可用在单个单测方法上，在该单测方法执行之前和之后对Mock的数据源做一些初始化和清理操作
+ * 该注解可用在单个单测方法上，在该单测方法执行之前和之后对Mock的数据源做一些初始化和清理操作，前提是一定有一个单测类使用了@EnableMockDatabase开启了h2database数据源
  *
  * @author Jingge
  * @date 2025-01-17 16:10

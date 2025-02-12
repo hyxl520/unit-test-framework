@@ -2,6 +2,7 @@ package io.github.hyxl520.annotations;
 
 import io.github.hyxl520.DatasourceConfig;
 import io.github.hyxl520.JingGeExtension;
+import io.github.hyxl520.processor.MockDatabaseType;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -42,4 +43,9 @@ public @interface EnableMockDatabase {
 	 * 每个单测类执行完成后是否清空所有的表和数据
 	 */
 	boolean cleanupAllTablesAndData() default true;
+
+	/**
+	 * h2database要Mock的数据库类型
+	 */
+	MockDatabaseType databaseType() default MockDatabaseType.MY_SQL;
 }

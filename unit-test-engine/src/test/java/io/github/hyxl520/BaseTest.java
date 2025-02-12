@@ -13,6 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(classes = DefaultTestBootApplication.class)
 @JingGeUnitTest
 @EnableUselessBeanAutoRemoved
-@EnableMockRedisServer
+@EnableMockRedisServer(port = 26379, mallocMemorySize = 128)
 public class BaseTest {
 }

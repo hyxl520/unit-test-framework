@@ -1,7 +1,7 @@
 package io.github.hyxl520;
 
 import io.github.hyxl520.annotations.EnableMockDatabase;
-import io.github.hyxl520.annotations.MockData;
+import io.github.hyxl520.processor.MockDatabaseType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
