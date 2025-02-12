@@ -31,8 +31,8 @@ import java.util.Optional;
  * @email 1158055613@qq.com
  */
 @Slf4j
-public class JingGeUnitTestExtension extends SpringExtension {
-	private static final String SHE_BAO_INITIALIZED_STORE_KEY = "JingGeUnittest";
+public class JingGeExtension extends SpringExtension {
+	private static final String JING_GE_UNIT_TEST_STORE_KEY = "JingGeUnittest";
 
 	private static final String LOG_PREFIX = "JingGe unit test framework log => ";
 	private static final String EXECUTE_TIME_PREFIX = "unitTestExecuteTime";
@@ -153,7 +153,7 @@ public class JingGeUnitTestExtension extends SpringExtension {
 
 	@Override
 	public void beforeAll(ExtensionContext context) throws Exception {
-		ExtensionContext.Namespace namespace = ExtensionContext.Namespace.create(SHE_BAO_INITIALIZED_STORE_KEY);
+		ExtensionContext.Namespace namespace = ExtensionContext.Namespace.create(JING_GE_UNIT_TEST_STORE_KEY);
 		EnableMockRedisServer mockRedisServer = getMockRedisServerAnnotation(context);
 		String redisServerKey = "startRedisServer";
 		if (mockRedisServer != null && (isWithDirtyContext(context) || context.getRoot().getStore(namespace).get(
@@ -168,7 +168,7 @@ public class JingGeUnitTestExtension extends SpringExtension {
 	public void postProcessTestInstance(Object testInstance,
 	                                    ExtensionContext context) throws Exception {
 		super.postProcessTestInstance(testInstance, context);
-		ExtensionContext.Namespace namespace = ExtensionContext.Namespace.create(SHE_BAO_INITIALIZED_STORE_KEY);
+		ExtensionContext.Namespace namespace = ExtensionContext.Namespace.create(JING_GE_UNIT_TEST_STORE_KEY);
 		EnableMockDatabase mockDatabase = getMockDatabaseAnnotation(context);
 		String key = testInstance.getClass().getName() + "initScripts";
 		if (mockDatabase != null && context.getRoot().getStore(namespace).get(key) == null) {
@@ -245,14 +245,14 @@ public class JingGeUnitTestExtension extends SpringExtension {
 	private void insertStartTimeMills(String methodName,
 	                                  ExtensionContext context) {
 		String key = EXECUTE_TIME_PREFIX + "_" + methodName;
-		context.getStore(ExtensionContext.Namespace.create(SHE_BAO_INITIALIZED_STORE_KEY))
+		context.getStore(ExtensionContext.Namespace.create(JING_GE_UNIT_TEST_STORE_KEY))
 		       .put(key, System.currentTimeMillis());
 	}
 
 	private long getStartTimeMills(String methodName,
 	                               ExtensionContext context) {
 		String key = EXECUTE_TIME_PREFIX + "_" + methodName;
-		return (long)context.getStore(ExtensionContext.Namespace.create(SHE_BAO_INITIALIZED_STORE_KEY)).get(key);
+		return (long)context.getStore(ExtensionContext.Namespace.create(JING_GE_UNIT_TEST_STORE_KEY)).get(key);
 	}
 
 	@Override
@@ -275,7 +275,14 @@ public class JingGeUnitTestExtension extends SpringExtension {
 		         System.currentTimeMillis() - getStartTimeMills(testMethod.getName(), context));
 		MockData mockData = getMockDataAnnotation(context);
 		if (mockData != null) {
-			executeCleanUp(mockData.cleanupSqlLocations());
+			if (mockData.cleanupAllTablesAndData()) {
+				int total = cleanupAllTables();
+				log.info("{} tables and their data have been cleaned up.", total);
+				log.info(
+					"the cleanupAllTablesAndData is true, so the clean script that defined by MockData annotation won't be executed");
+			} else {
+				executeCleanUp(mockData.cleanupSqlLocations());
+			}
 		}
 	}
 }

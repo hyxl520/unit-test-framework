@@ -1,6 +1,6 @@
 package io.github.hyxl520.annotations;
 
-import io.github.hyxl520.JingGeUnitTestExtension;
+import io.github.hyxl520.JingGeExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.annotation.*;
@@ -15,7 +15,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@ExtendWith(JingGeUnitTestExtension.class)
+@ExtendWith(JingGeExtension.class)
 public @interface MockData {
 	/**
 	 * 初始化h2database表结构的SQL脚本路径，该脚本会在每个单测方法执行之前执行，该脚本必须放到类路径下，为空忽略
@@ -31,4 +31,9 @@ public @interface MockData {
 	 * 清除h2database表结构或者表数据的脚本，该脚本会在每个单测方法执行完成后执行，为空忽略
 	 */
 	String[] cleanupSqlLocations() default "";
+
+	/**
+	 * 每个单测方法执行完成后是否清空所有的表和数据
+	 */
+	boolean cleanupAllTablesAndData() default true;
 }

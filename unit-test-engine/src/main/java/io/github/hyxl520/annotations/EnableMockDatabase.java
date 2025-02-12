@@ -1,7 +1,7 @@
 package io.github.hyxl520.annotations;
 
 import io.github.hyxl520.DatasourceConfig;
-import io.github.hyxl520.JingGeUnitTestExtension;
+import io.github.hyxl520.JingGeExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -19,7 +19,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@ExtendWith({JingGeUnitTestExtension.class})
+@ExtendWith({JingGeExtension.class})
 @Import(DatasourceConfig.class)
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 public @interface EnableMockDatabase {

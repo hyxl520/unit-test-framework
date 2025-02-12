@@ -1,6 +1,6 @@
 package io.github.hyxl520.annotations;
 
-import io.github.hyxl520.JingGeUnitTestExtension;
+import io.github.hyxl520.JingGeExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,10 +19,10 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@ComponentScan(basePackages = "com.hiwork.global.framework")
+@ComponentScan(basePackages = "io.github.hyxl520")
 @ActiveProfiles("unittest")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableAutoConfiguration
-@ExtendWith(JingGeUnitTestExtension.class)
+@ExtendWith(JingGeExtension.class)
 public @interface JingGeUnitTest {
 }

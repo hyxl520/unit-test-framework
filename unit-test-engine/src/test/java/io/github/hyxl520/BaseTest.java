@@ -1,6 +1,5 @@
 package io.github.hyxl520;
 
-import io.github.hyxl520.annotations.EnableMockDatabase;
 import io.github.hyxl520.annotations.EnableMockRedisServer;
 import io.github.hyxl520.annotations.EnableUselessBeanAutoRemoved;
 import io.github.hyxl520.annotations.JingGeUnitTest;
