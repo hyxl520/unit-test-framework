@@ -1,7 +1,10 @@
 # 简介
 ---
 
-在Java SSM相关的Web开发过程中，单测是一个提高代码质量的关键举措。然而在实际写单测的过程中，虽然Mockito能够帮我们解决某些需要跟数据库或者Redis交互的方法数据问题，但是Mockito只是对返回值进行了Mock，内部的逻辑却无法真实验证。目前很多人采用的是使用`H2database`和`embedded Redis`来替代实际MySQL和Redis来进行测试，然而在集成和使用过程中测试数据的初始化、实际的交互这些都需要额外配置，整体还是有一定的融入难度。在实际的单测里面，很多Bean我们也并不需要，利用`@ComponentScan`来配置也比较麻烦等等问题，因此`unit-test-framework`就是为了解决这些问题而开发的，原生集成了`H2database`和`embedded Redis`，并且提供了Spring boot风格的基于注解的配置，整体做到开箱即用，具体的内容可以见如下的特性。
+在Java SSM相关的Web开发过程中，单测是一个提高代码质量的关键举措。然而在实际写单测的过程中，虽然Mockito能够帮我们解决某些需要跟数据库或者Redis交互的方法数据问题，但是如果特别需要验证与外部资源交互的逻辑时Mockito
+只是对返回值进行了Mock
+，内部的交互逻辑却无法真实验证。目前很多人采用的是使用`H2database`和`embedded 
+Redis`来替代实际MySQL和Redis来进行测试，然而在集成和使用过程中测试数据的初始化、实际的交互这些都需要额外配置，整体还是有一定的融入难度。在实际的单测里面，很多Bean我们也并不需要，利用`@ComponentScan`来配置也比较麻烦等等问题，因此`unit-test-framework`就是为了解决这些问题而开发的，原生集成了`H2database`和`embedded Redis`，并且提供了Spring boot风格的基于注解的配置，整体做到开箱即用，具体的内容可以见如下的特性。
 # 特性
 ---
 ## 原生集成`H2database`和`embedded Redis`
